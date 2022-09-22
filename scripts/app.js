@@ -13,6 +13,7 @@
      * @param {string} url
      * @param {function} callback
      */
+
     function LoadData(method, url, callback) //XHR - allows you to get data from a server without doing a full page refresh // we right clicked here and selected rename symbol and changed it from XHRRequest to LoadData
     {
         //Step 1- Create an empty XHR object
@@ -43,8 +44,13 @@
     function Start()
       {
         console.log("App Started!");
-        LoadData("GET", "/Data/contacts.json", function(XHR){
-            console.log(XHR);
+        // LoadData("GET", "/Data/contacts.json", function(XHR){
+        //     console.log(XHR);
+        // });
+
+        //this is jQuery
+        $.getJSON("/Data/contacts.json", function(DataSource){
+            console.log(DataSource.ContactList[0]);
         });
      }
 
