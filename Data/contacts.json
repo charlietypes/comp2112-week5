@@ -1,0 +1,7 @@
+{
+    "ContactList": [
+        {"FullName": "Belinda Travers", "ContactNumber": "7057395769", "EmailAddress": "continuallyconfusedcharlie@gmail.com"},
+        {"FullName": "Peter Parker", "ContactNumber": "4165555551", "EmailAddress": "spiderman@gmail.com"},
+        {"FullName": "Tony Stark", "ContactNumber": "4165555552", "EmailAddress": "ironman@gmail.com"}
+    ]
+}
