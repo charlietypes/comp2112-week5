@@ -13,9 +13,20 @@
       {
          console.log("App Started!");
 
+         let contactList;
+
          $.getJSON("./Data/contacts.json", function(DataSource){
-            console.log(DataSource.ContactList[0]);
+            //Get your data from the data source
+            contactList = DataSource.ContactList;
+            
+            //load your data into objects
+           let contact = new Contact();
+           console.log(contact.toString());
+
          });
+         
+         //localStorage.setItem("0", "Tom");
+         
       } //btw ctrl-/ to comment multiple things out at once
 
       window.addEventListener("load", Start);
