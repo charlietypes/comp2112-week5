@@ -12,8 +12,12 @@
             //Get your data from the data source
             contactList = DataSource.ContactList;
             //load your data into objects
-            let contact = new Contact();
-            console.log(contact.toString());
+            //    let contact = new Contact();
+            //    console.log(contact.toString());
+            for (const contact of contactList) {
+                let newContact = new Contact(contact.FullName, contact.ContactNumber, contact.EmailAddress);
+                console.log(newContact.toString());
+            }
         });
         //localStorage.setItem("0", "Tom");
     } //btw ctrl-/ to comment multiple things out at once

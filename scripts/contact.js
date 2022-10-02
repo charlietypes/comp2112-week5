@@ -16,7 +16,7 @@ class Contact {
         this.fullName = name;
     }
     get ContactNumber() {
-        return this.fullName;
+        return this.contactNumber;
     }
     set ContactNumber(contactNumber) {
         this.contactNumber = contactNumber;
@@ -73,6 +73,30 @@ class Contact {
         return outputString;
         //string interporlation, also template literal
         // \n is a new line
+    }
+    //overloaded: different signature in the same class, same function name, other outputs/functionality
+    //overrided method: exists already in the output superclass, overriding it - taking something inherited (toString), changing the output- what toString will give is different for this class than any other class
+    /**
+     * This method converts class Data Members to a comma-seperated list compatible with JSON
+     *
+     * @returns {string}
+     * @memberof Contact
+     */
+    toJSON() {
+        // return `{ "FullName": ${this.FullName}, "ContactNumber:" ${this.ContactNumber}, "EmailAddress": ${this.EmailAddress} }`
+        return `${this.FullName}, ${this.ContactNumber}, ${this.EmailAddress}`; //don't need the "FullName" etc labels
+    }
+    /**
+     * This method reads data from a comma-seperated list and assigns it to class Data Members
+     *
+     * @param {string} data
+     * @memberof Contact
+     */
+    fromJSON(data) {
+        //reconstruct private instance members from data
+        this.FullName = data.FullName;
+        this.ContactNumber = data.ContactNumber;
+        this.EmailAddress = data.EmailAddress;
     }
 }
 //# sourceMappingURL=contact.js.map

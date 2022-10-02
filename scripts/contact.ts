@@ -22,7 +22,7 @@ set FullName(name: string)
 
 
 get ContactNumber():string {
-    return this.fullName;
+    return this.contactNumber;
 }
 
 set ContactNumber(contactNumber: string)
@@ -102,7 +102,31 @@ public toString(): string
 
 //overrided method: exists already in the output superclass, overriding it - taking something inherited (toString), changing the output- what toString will give is different for this class than any other class
 
+/**
+ * This method converts class Data Members to a comma-seperated list compatible with JSON
+ *
+ * @returns {string}
+ * @memberof Contact
+ */
+public toJSON():string
+{
+    // return `{ "FullName": ${this.FullName}, "ContactNumber:" ${this.ContactNumber}, "EmailAddress": ${this.EmailAddress} }`
+    return `${this.FullName}, ${this.ContactNumber}, ${this.EmailAddress}`; //don't need the "FullName" etc labels
+}
 
+/**
+ * This method reads data from a comma-seperated list and assigns it to class Data Members
+ *
+ * @param {string} data
+ * @memberof Contact
+ */
+public fromJSON(data:any):void //any is not ideal to use, just use it to make things work at first
+{
+    //reconstruct private instance members from data
+    this.FullName = data.FullName;
+    this.ContactNumber = data.ContactNumber;
+    this.EmailAddress = data.EmailAddress;
+}
 
     //private methods
 }
