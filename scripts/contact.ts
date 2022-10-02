@@ -111,7 +111,7 @@ public toString(): string
 public toJSON():string
 {
     // return `{ "FullName": ${this.FullName}, "ContactNumber:" ${this.ContactNumber}, "EmailAddress": ${this.EmailAddress} }`
-    return `${this.FullName}, ${this.ContactNumber}, ${this.EmailAddress}`; //don't need the "FullName" etc labels
+    return `${this.FullName},${this.ContactNumber},${this.EmailAddress}`; //don't need the "FullName" etc labels
 }
 
 /**
@@ -120,12 +120,13 @@ public toJSON():string
  * @param {string} data
  * @memberof Contact
  */
-public fromJSON(data:any):void //any is not ideal to use, just use it to make things work at first
+public fromJSON(data:string):void //any is not ideal to use, just use it to make things work at first
 {
+    let stringArray: string[] = data.split(",");
     //reconstruct private instance members from data
-    this.FullName = data.FullName;
-    this.ContactNumber = data.ContactNumber;
-    this.EmailAddress = data.EmailAddress;
+    this.FullName = stringArray[0];
+    this.ContactNumber = stringArray[1];
+    this.EmailAddress = stringArray[2];
 }
 
     //private methods

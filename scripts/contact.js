@@ -84,7 +84,7 @@ class Contact {
      */
     toJSON() {
         // return `{ "FullName": ${this.FullName}, "ContactNumber:" ${this.ContactNumber}, "EmailAddress": ${this.EmailAddress} }`
-        return `${this.FullName}, ${this.ContactNumber}, ${this.EmailAddress}`; //don't need the "FullName" etc labels
+        return `${this.FullName},${this.ContactNumber},${this.EmailAddress}`; //don't need the "FullName" etc labels
     }
     /**
      * This method reads data from a comma-seperated list and assigns it to class Data Members
@@ -93,10 +93,11 @@ class Contact {
      * @memberof Contact
      */
     fromJSON(data) {
+        let stringArray = data.split(",");
         //reconstruct private instance members from data
-        this.FullName = data.FullName;
-        this.ContactNumber = data.ContactNumber;
-        this.EmailAddress = data.EmailAddress;
+        this.FullName = stringArray[0];
+        this.ContactNumber = stringArray[1];
+        this.EmailAddress = stringArray[2];
     }
 }
 //# sourceMappingURL=contact.js.map

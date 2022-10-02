@@ -11,12 +11,24 @@
         $.getJSON("./Data/contacts.json", function (DataSource) {
             //Get your data from the data source
             contactList = DataSource.ContactList;
+            let count = 0;
             //load your data into objects
             //    let contact = new Contact();
             //    console.log(contact.toString());
             for (const contact of contactList) {
                 let newContact = new Contact(contact.FullName, contact.ContactNumber, contact.EmailAddress);
+                //console.log(newContact.toString());
+                localStorage.setItem(count.toString(), newContact.toJSON());
+                count++;
+                //taken data from file, converted to comma-seperated format in localStorage
+            }
+            let keys = Object.keys(localStorage);
+            for (let key of keys) {
+                let newContact = new Contact();
+                newContact.fromJSON(localStorage.getItem(key));
+                //console.log(localStorage.getItem(key)); <- was using this to debug
                 console.log(newContact.toString());
+                // console.log(`${key}: ${localStorage.getItem(key)}`);
             }
         });
         //localStorage.setItem("0", "Tom");
