@@ -43,37 +43,35 @@
     }
     function LoadHeader() {
         $.get("./Views/components/header.html", function (html_data) {
-            //vanilla javascript
-            //document.getElementsByTagName("header")[0].innerHTML = html_data; //returns the first one on the page
             $("header").html(html_data); //this is jQuery
             //console.log(html_data);
             //$("#homePage").addClass("active"); <- we want this to be done automatically though, so how?
-            switch (document.title) {
-                case "Home":
-                    $("#homePage").addClass("active");
-                    break;
-                case "About Us":
-                    $("#aboutPage").addClass("active");
-                    break;
-                case "Our Projects":
-                    $("#projectsPage").addClass("active");
-                    break;
-                case "Our Services":
-                    $("#servicesPage").addClass("active");
-                    break;
-                case "Contact Us":
-                    $("#contactPage").addClass("active");
-                    break;
-            }
-            //vanilla javascript
-            // let navLinks = document.querySelectorAll("li>a.nav-link");
-            // for (const link of navLinks as HTMLAnchorElement[]) {
-            //     console.log(link.href);
-            // }
-            //    $("li>a.nav-link").each(function(link){
-            //         console.log($(this).prop("href")); 
-            //     })
+            $("li>a").on("click", function () {
+                let title = $(this).prop("id");
+                //capitalize the link and make it the document title
+                document.title = title.substring(0, 1).toUpperCase() + title.substring(1);
+                LoadContent();
+            });
         });
+    }
+    function LoadContent() {
+        switch (document.title) {
+            case "Home":
+                $.get("./Views/content/home.html", function (html_data) { $("main").html(html_data); });
+                break;
+            case "About":
+                $.get("./Views/content/about.html", function (html_data) { $("main").html(html_data); });
+                break;
+            case "Projects":
+                $.get("./Views/content/projects.html", function (html_data) { $("main").html(html_data); });
+                break;
+            case "Services":
+                $.get("./Views/content/services.html", function (html_data) { $("main").html(html_data); });
+                break;
+            case "Contact":
+                $.get("./Views/content/contact.html", function (html_data) { $("main").html(html_data); });
+                break;
+        }
     }
     function LoadFooter() {
         $.get("./Views/components/footer.html", function (html_data) {
@@ -85,6 +83,8 @@
     //First way of using functions - named function
     function Start() {
         console.log("App Started!");
+        //initial load
+        document.title = "Home";
         LoadHeader();
         LoadFooter();
     } //btw ctrl-/ to comment multiple things out at once
