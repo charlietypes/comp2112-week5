@@ -52,6 +52,10 @@
             return ContactArray;
     }
 
+    /**
+     * This method loads the header and the page content
+     *
+     */
     function LoadHeader():void
     {
         $.get("./Views/components/header.html", function(html_data)
@@ -60,44 +64,86 @@
             $("header").html(html_data); //this is jQuery
             //console.log(html_data);
             //$("#homePage").addClass("active"); <- we want this to be done automatically though, so how?
-            $("li>a").on("click", function()
+
+            //activate the current link
+            $("li>a#Home").addClass("active");
+
+            $("li>a").on("click", function(event)
             {
-                let title = $(this).prop("id") as string;
-                //capitalize the link and make it the document title
-                document.title = title.substring(0, 1).toUpperCase() + title.substring(1);
+                event.preventDefault();  
+                
+                //change title
+                document.title=$(this).prop("id") as string;
+
+                // change url
+                history.pushState({}, "", "/" + document.title);
+
+                //removes the active class from each list item
+                $("li>a").each(function(){
+                    $(this).removeClass("active");
+                });
+
+                $("li>a#" + document.title).addClass("active")
+                //reset all the links
+                //$("li>a").off("click"); //remove event listener
 
                 LoadContent();
+                
+                
+                //let title = $(this).prop("id") as string;
+                //capitalize the link and make it the document title
+                //document.title = title.substring(0, 1).toUpperCase() + title.substring(1);
+
+                
+
+                //activate the current link
+                //$("li>a#" + document.title).addClass("active");
+
+               
             });
             
         });  
     }
 
+    /**
+     *This method injects the page content
+     *
+     */
     function LoadContent():void 
     {
-        switch(document.title) 
-        {
-            case "Home":
-            $.get("./Views/content/home.html", function (html_data){$("main").html(html_data);});
-            break;
+        let contentLink = document.title.toLowerCase();
 
-            case "About": 
-            $.get("./Views/content/about.html", function (html_data){$("main").html(html_data);});
-            break;
+        $.get("./Views/content/" + contentLink + ".html", function (html_data){
+            $("main").html(html_data);
+        });
+        // switch(document.title) 
+        // {
+        //     case "Home":
+        //     $.get("./Views/content/home.html", function (html_data){$("main").html(html_data);});
+        //     break;
 
-            case "Projects":
-           $.get("./Views/content/projects.html", function (html_data){$("main").html(html_data);});
-            break;
+        //     case "About": 
+        //     $.get("./Views/content/about.html", function (html_data){$("main").html(html_data);});
+        //     break;
 
-            case "Services":
-            $.get("./Views/content/services.html", function (html_data){$("main").html(html_data);});
-            break;
+        //     case "Projects":
+        //    $.get("./Views/content/projects.html", function (html_data){$("main").html(html_data);});
+        //     break;
 
-            case "Contact":
-            $.get("./Views/content/contact.html", function (html_data){$("main").html(html_data);});
-            break;
-        }
+        //     case "Services":
+        //     $.get("./Views/content/services.html", function (html_data){$("main").html(html_data);});
+        //     break;
+
+        //     case "Contact":
+        //     $.get("./Views/content/contact.html", function (html_data){$("main").html(html_data);});
+        //     break;
+        // }
     }
 
+    /**
+     *This method loads and injects the footer content
+     *
+     */
     function LoadFooter(): void
     {
         $.get("./Views/components/footer.html", function(html_data)
@@ -117,6 +163,13 @@
 
          //initial load
          document.title = "Home";
+
+         // change url
+         history.pushState({}, "", "/Home");
+
+         //activate the current link
+        $("li>a#Home").addClass("active");
+
          LoadContent();
 
          LoadHeader();
